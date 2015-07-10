@@ -57,10 +57,10 @@ function cb(err, res, body){
 // Scrapes a url with html selectors.
 // If dyn == true, use a dynamic scraper dx.
 // Returns a promise.
-function scrape(url, selectors, dyn) {
+function scrape(dyn, url, scope, selector) {
     var defer = q.defer();
     var scraper = dyn ? dx : x;
-    scraper(url, selectors)(function(err, res){
+    scraper(url, scope, selector)(function(err, res){
         defer.resolve(res);
     })
     return defer.promise;

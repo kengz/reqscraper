@@ -10,7 +10,7 @@ Both return promise. `req` has internal control structure to retry request up to
 #### Brief API doc
 - `req(options)`, where `options` is a request options object. See [`requestJS`](https://github.com/request/request) for full detail.
 
-- `scrape(url, selectors, dyn)`, where `url` is the page url, `selectors` is some HTML selectors, `dyn` is the optional boolean to use dynamic scraping, using `x-ray-phantom`. See [`x-ray`](https://github.com/lapwinglabs/x-ray) for full detail.
+- `scrape(dyn, url, scope, selector)`, where `dyn` is the optional boolean to use dynamic scraping, using `x-ray-phantom`; `url` is the page url, `scope` and `selector` are some HTML selectors. See [`x-ray`](https://github.com/lapwinglabs/x-ray) for full detail.
 
 
 ```Javascript
@@ -36,7 +36,7 @@ return req(options)
 
 
 // sample use of scrape
-return scrape('https://www.google.com', 'body')
+return scrape(false, 'https://www.google.com', 'body')
 // prints the HTML <body> tag
 .then(console.log)
 ```
