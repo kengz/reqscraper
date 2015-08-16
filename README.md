@@ -35,8 +35,13 @@ return req(options)
 .then(console.log)
 
 
-// sample use of scrape
+// sample use of scrape, non-dynamic
 return scrape(false, 'https://www.google.com', 'body')
 // prints the HTML <body> tag
+.then(console.log)
+
+// You can also call it with scope in param #3, and selector in #4
+return scrape(false, 'https://www.google.com', 'body', ['li'])
+// prints the <li>'s inside the <body> tag
 .then(console.log)
 ```
