@@ -29,25 +29,27 @@ function req(options) {
     return defer.promise;
 }
 // the recursive retry request() function
+// callback for request JS 
+  // the recursive retry request() function
 function retry(options, defer, times) {
     try {
         // bind the defer object to cb
-        request(options, cb.bind(defer))
+        request(options, function(err, res, body)
+        {
+            if (!err && res.statusCode == 200)
+                this.resolve(body);
+            else {
+                console.log(err);
+                if (times--) retry(options, defer, times);
+                // if err, reject
+                else defer.reject(err);
+            }
+        }.bind(defer));
     }
     catch (err) {
         if (times--) retry(options, defer, times);
         // if err, reject
         else defer.reject(err);
-    }
-}
-// callback for request JS 
-// binded with q.defer from req() to resolve(body)
-function cb(err, res, body){
-    if (!err && res.statusCode == 200)
-        this.resolve(body)
-    else {
-        console.log(err, res.statusCode, body);
-        throw err;
     }
 }
 
