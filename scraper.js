@@ -119,7 +119,7 @@ function xs(dyn, urlArr, selector, limit) {
     var x = scrape.bind(null, dyn)
     // limit the urlArr size for crawling
     if (limit > 0) urlArr = _.take(urlArr, limit)
-
+        console.log("urlArr is", urlArr)
     var promises = []
     _.each(urlArr, function(url) {
         var defer = new Promise(function (resolve, reject){
@@ -138,7 +138,7 @@ function xs(dyn, urlArr, selector, limit) {
 //     ['https://www.google.com'], {
 //         res: ['a'],
 //         hrefs: ['a@href']
-//     })
+//     }, 5)
 // .then(function(roar){
 //     console.log(roar)
 //     console.log(roar[0].hrefs)
@@ -201,7 +201,7 @@ function rxs(dyn, obj, urlArr, selector, tailArr, limit) {
 
 // scraper that can crawl
 // Note that to crawl, each higher level of selector must have the 'hfres' selector specified
-function scrapeCrawl(dyn, url, selector, tailArr) {
+function scrapeCrawl(dyn, url, selector, tailArr, limit) {
     var defer = Promise.defer()
 
     // the scraped result as object
@@ -211,7 +211,7 @@ function scrapeCrawl(dyn, url, selector, tailArr) {
     var urlArr = _.isArray(url) ? url : [url]
 
     // call recursie x's and put result thru defer's promise
-    rxs(dyn, res, urlArr, selector, tailArr)
+    rxs(dyn, res, urlArr, selector, tailArr, limit)
     .then(function(meh){
         // console.log(JSON.stringify(meh))
         defer.resolve(meh)
@@ -222,40 +222,41 @@ function scrapeCrawl(dyn, url, selector, tailArr) {
 }
 
 
-// // sample call
-// // static scrape-crawler
-// var sc = scrapeCrawl.bind(null, false)
+// sample call
+// static scrape-crawler
+var sc = scrapeCrawl.bind(null, false)
 
-// // base selector, level 0
-// // has attribute `hrefs` for crawling next
-// var selector0 = {
-//     img: ['.dribbble-img'],
-//     h1: ['h1'],
-//     hrefs: ['.next_page@href']
-// }
+// base selector, level 0
+// has attribute `hrefs` for crawling next
+var selector0 = {
+    img: ['.dribbble-img'],
+    h1: ['h1'],
+    hrefs: ['.next_page@href']
+}
 
-// // has attribute `hrefs` for crawling
-// var selector1 = {
-//     h1: ['h1'],
-//     hrefs: ['.next_page@href']
-// }
-// // the last selector where crawling ends; no need for `hrefs`
-// var selector2 = {
-//     h1: ['h1']
-// }
+// has attribute `hrefs` for crawling
+var selector1 = {
+    h1: ['h1'],
+    hrefs: ['.next_page@href']
+}
+// the last selector where crawling ends; no need for `hrefs`
+var selector2 = {
+    h1: ['h1']
+}
 
-// // Sample call of the method
-// sc(
-//     'https://dribbble.com', 
-//     selector0,
-//     // crawl for 3 more times before stoppping at the 4th level
-//     [selector1, selector1, selector1, selector2]
-//     )
-// .then(function(res){
-//     // prints the result
-//     console.log(JSON.stringify(res, null, 2))
-// })
-// .catch(console.log)
+// Sample call of the method
+sc(
+    'https://dribbble.com', 
+    selector0,
+    // crawl for 3 more times before stoppping at the 4th level
+    [selector1, selector1, selector1, selector2],
+    3
+    )
+.then(function(res){
+    // prints the result
+    console.log(JSON.stringify(res, null, 2))
+})
+.catch(console.log)
 
 
 // exporting HTTP req and scrape, scrapeCrawl

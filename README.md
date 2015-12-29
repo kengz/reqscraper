@@ -12,7 +12,7 @@ Both return promise. `req` has internal control structure to retry request up to
 
 - `scrape(dyn, url, scope, selector)`, where `dyn` is the boolean to use dynamic scraping using `x-ray-phantom`; `url` is the page url, `scope` and `selector` are some HTML selectors. See [`x-ray`](https://github.com/lapwinglabs/x-ray) for full detail.
 
-- `scrapeCrawl(dyn, url, selector, tailArr)`, where `dyn` is true for dynamic scraping using `x-ray-phantom`;
+- `scrapeCrawl(dyn, url, selector, tailArr, [limit])`, where `dyn` is true for dynamic scraping using `x-ray-phantom`;
 
 #### `req(options)`
 Convenient wrapper for `request js` - HTTP request method that returns a promise.
@@ -41,6 +41,9 @@ var options = {
 return req(options)
 // prints the result
 .then(console.log)
+// prints the error if thrown
+.catch(console.log)
+
 ```
 
 #### `scrape(dyn, url, scope, selector)`
@@ -79,6 +82,7 @@ An extension of `scrape` above with crawling capability. Returns a promise with 
 | `url` | the base page url to scrape and crawl from |
 | `selector` | The selector for the base page (first level) |
 | `tailArr` | An array of selectors for each level to crawl. Note that a preceeding selector must specify the urls to crawl via `hrefs`. |
+| `[limit]` | An optional integer to limit the number of children crawled at every level. |
 
 
 ```Javascript
@@ -117,6 +121,20 @@ sc(
     selector0,
     // crawl for 3 more times before stoppping at the 4th level
     [selector1, selector1, selector1, selector2]
+    )
+.then(function(res){
+    // prints the result
+    console.log(JSON.stringify(res, null, 2))
+})
+
+
+// Same as above, but with a limit on how many children should be crawled (3 below)
+sc(
+    'https://dribbble.com', 
+    selector0,
+    // crawl for 3 more times before stoppping at the 4th level
+    [selector1, selector1, selector1, selector2],
+    3
     )
 .then(function(res){
     // prints the result
