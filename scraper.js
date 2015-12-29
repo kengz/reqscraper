@@ -222,41 +222,41 @@ function scrapeCrawl(dyn, url, selector, tailArr, limit) {
 }
 
 
-// sample call
-// static scrape-crawler
-var sc = scrapeCrawl.bind(null, false)
+// // sample call
+// // static scrape-crawler
+// var sc = scrapeCrawl.bind(null, false)
 
-// base selector, level 0
-// has attribute `hrefs` for crawling next
-var selector0 = {
-    img: ['.dribbble-img'],
-    h1: ['h1'],
-    hrefs: ['.next_page@href']
-}
+// // base selector, level 0
+// // has attribute `hrefs` for crawling next
+// var selector0 = {
+//     img: ['.dribbble-img'],
+//     h1: ['h1'],
+//     hrefs: ['.next_page@href']
+// }
 
-// has attribute `hrefs` for crawling
-var selector1 = {
-    h1: ['h1'],
-    hrefs: ['.next_page@href']
-}
-// the last selector where crawling ends; no need for `hrefs`
-var selector2 = {
-    h1: ['h1']
-}
+// // has attribute `hrefs` for crawling
+// var selector1 = {
+//     h1: ['h1'],
+//     hrefs: ['.next_page@href']
+// }
+// // the last selector where crawling ends; no need for `hrefs`
+// var selector2 = {
+//     h1: ['h1']
+// }
 
-// Sample call of the method
-sc(
-    'https://dribbble.com', 
-    selector0,
-    // crawl for 3 more times before stoppping at the 4th level
-    [selector1, selector1, selector1, selector2],
-    3
-    )
-.then(function(res){
-    // prints the result
-    console.log(JSON.stringify(res, null, 2))
-})
-.catch(console.log)
+// // Sample call of the method
+// sc(
+//     'https://dribbble.com', 
+//     selector0,
+//     // crawl for 3 more times before stoppping at the 4th level
+//     [selector1, selector1, selector1, selector2],
+//     3
+//     )
+// .then(function(res){
+//     // prints the result
+//     console.log(JSON.stringify(res, null, 2))
+// })
+// .catch(console.log)
 
 
 // exporting HTTP req and scrape, scrapeCrawl
