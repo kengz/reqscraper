@@ -1,6 +1,6 @@
 {
   "name": "reqscraper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight wrapper for Request and X-Ray JS.",
   "main": "scraper.js",
   "scripts": {
