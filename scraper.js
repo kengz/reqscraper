@@ -187,10 +187,7 @@ function rxs(dyn, obj, urlArr, selector, tailArr, limit) {
 
               // recursive call
               rxs(dyn, o, hrefs, newSelector, newTailArr, limit)
-                .then(function(res) {
-                  resolve(res)
-                  return res
-                })
+                .then(resolve)
                 .catch(reject)
             } else {
               resolve()
@@ -226,10 +223,7 @@ function scrapeCrawl(dyn, url, selector, tailArr, limit) {
 
     // call recursie x's and put result thru defer's promise
     rxs(dyn, res, urlArr, selector, tailArr, limit)
-      .then(function(meh) {
-        // console.log(JSON.stringify(meh))
-        dresolve(meh)
-      })
+      .then(dresolve)
       .catch(dreject)
 
   })

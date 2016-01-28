@@ -1,4 +1,7 @@
 # reqscraper
+
+[![npm version](https://badge.fury.io/js/reqscraper.svg)](https://badge.fury.io/js/reqscraper)
+
 Lightweight wrapper for Request and X-Ray JS.
 
 
