@@ -4,7 +4,9 @@
   "description": "Lightweight wrapper for Request and X-Ray JS.",
   "main": "scraper.js",
   "scripts": {
-    "start": "node scraper.js"
+    "start": "node scraper.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -12,10 +14,11 @@
   },
   "dependencies": {
     "bluebird": "^3.1.1",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.5",
     "request": "^2.58.0",
     "x-ray": "^2.0.2",
-    "x-ray-phantom": "^1.0.0"
+    "x-ray-phantom": "^1.0.0",
+    "snyk": "^1.88.0"
   },
   "devDependencies": {},
   "keywords": [
@@ -34,5 +37,6 @@
   "bugs": {
     "url": "https://github.com/kengz/reqscraper/issues"
   },
-  "homepage": "https://github.com/kengz/reqscraper"
+  "homepage": "https://github.com/kengz/reqscraper",
+  "snyk": true
 }
